@@ -1,0 +1,10 @@
+# IDE / tool config
+.joycode/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Large local video folder (if any)
+video/
