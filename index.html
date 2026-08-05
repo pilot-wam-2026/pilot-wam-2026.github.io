@@ -117,7 +117,7 @@
       </figure>
 
       <!-- Third-person real-robot video grid -->
-      <div class="video-grid-section reveal" id="video" style="--d:420ms">
+      <div class="video-grid-section hero-video reveal" id="video" style="--d:420ms">
         <h3 class="video-grid-title">Real-Robot Demonstrations (Third-Person View)</h3>
         <div class="video-grid" id="third-grid">
           <h4 class="vg-section-title">Standard</h4>
@@ -210,9 +210,10 @@
       <figure class="figure-card reveal">
         <img src="media/figures/framework.jpg" alt="PILOT framework overview." data-zoom loading="lazy" />
         <figcaption>
-          PILOT consists of three branches: (a) <b>World-Model</b> (Wan2.2) encodes observations and language instructions;
-          (b) <b>Action-Perceiver</b> uses learnable query tokens with <b>causally-decoupled attention</b> to extract
-          motion semantics; (c) <b>CDE</b> supervises motion semantics by predicting future state transitions on frozen
+          PILOT consists of three branches: 
+          (a) <b>World-Model</b> (Wan2.2) encodes observations and language instructions;
+          (b) <b>Action-Perceiver</b> uses learnable query tokens with <b>causally-decoupled attention</b> to extract motion semantics; 
+          (c) <b>CDE</b> supervises motion semantics by predicting future state transitions on frozen
           VJEPA2-AC representations.
         </figcaption>
       </figure>
@@ -269,7 +270,7 @@
   <!-- ============================================================ RESULTS -->
   <section class="sec" id="results">
     <div class="wrap">
-      <h2 class="sec-title reveal">Results</h2>
+      <h2 class="sec-title reveal">Results in the simulation and the real scenarios</h2>
 
       <div class="table-wrap reveal">
         <h3 class="table-title">RoboCasa-GR1 Benchmark (24 tasks, 5 categories)</h3>
@@ -277,59 +278,104 @@
           <thead>
             <tr>
               <th>Method</th>
-              <th>PnP Close</th>
-              <th>Novel From Cuttingboard</th>
-              <th>Novel From Placemat</th>
-              <th>Novel From Tray</th>
-              <th>Novel From Plate</th>
+              <th>Pick and Place (6)</th>
+              <th>Art. from Cuttingboard (5)</th>
+              <th>Art. from Placemat (4)</th>
+              <th>Art. from Tray (5)</th>
+              <th>Art. from Plate (4)</th>
               <th><b>Average</b></th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>RoboFlamingo</td><td>18.7</td><td>8.0</td><td>5.3</td><td>9.3</td><td>6.7</td><td>9.6</td></tr>
-            <tr><td>RT-2</td><td>25.3</td><td>12.0</td><td>10.7</td><td>13.3</td><td>10.7</td><td>14.4</td></tr>
-            <tr><td>Octo</td><td>28.0</td><td>16.0</td><td>12.0</td><td>17.3</td><td>10.7</td><td>16.8</td></tr>
-            <tr><td>GR-1</td><td>34.7</td><td>22.0</td><td>18.7</td><td>24.0</td><td>18.7</td><td>23.6</td></tr>
-            <tr><td>GR-2</td><td>42.7</td><td>30.0</td><td>28.0</td><td>34.7</td><td>26.7</td><td>32.4</td></tr>
-            <tr class="highlight"><td><b>PILOT (Ours)</b></td><td><b>72.0</b></td><td><b>56.0</b></td><td><b>54.7</b></td><td><b>74.8</b></td><td><b>55.3</b></td><td><b>62.6</b></td></tr>
+            <tr><td>GR00T N1.5</td><td>45.3</td><td>46.4</td><td>45.5</td><td>48.8</td><td>56.5</td><td>48.2</td></tr>
+            <tr><td>GR00T N1.6</td><td>24.2</td><td>56.9</td><td>51.9</td><td>55.1</td><td>57.5</td><td>47.6</td></tr>
+            <tr><td>DiT4DiT</td><td>50.3</td><td>57.6</td><td>39.0</td><td>46.4</td><td>60.0</td><td>50.8</td></tr>
+            <tr><td>UWM-XL</td><td>30.7</td><td>17.4</td><td>10.0</td><td>17.2</td><td>16.2</td><td>19.2</td></tr>
+            <tr><td>StarVLA</td><td>50.3</td><td>52.8</td><td>38.0</td><td>39.2</td><td>58.5</td><td>47.8</td></tr>
+            <tr><td>LDA</td><td>56.3</td><td>64.2</td><td>47.8</td><td>53.4</td><td>53.0</td><td>55.4</td></tr>
+            <tr><td>VP-VLA</td><td>54.3</td><td>60.8</td><td>54.5</td><td>46.0</td><td>53.5</td><td>53.8</td></tr>
+            <tr><td>PhysBrain</td><td>52.7</td><td>52.0</td><td>48.0</td><td>46.0</td><td>62.5</td><td>50.0</td></tr>
+            <tr><td>LangForce</td><td>55.7</td><td>53.2</td><td>48.0</td><td>47.2</td><td>58.5</td><td>52.6</td></tr>
+            <tr><td>FastWAM</td><td>52.7</td><td>60.6</td><td>47.2</td><td>54.8</td><td>58.5</td><td>56.7</td></tr>
+            <tr><td>Motus</td><td>49.3</td><td>56.6</td><td>43.8</td><td>50.8</td><td>54.5</td><td>53.1</td></tr>
+            <tr class="highlight"><td><b>PILOT (Ours)</b></td><td><b>59.7</b></td><td><b>61.2</b></td><td><b>56.0</b></td><td><b>74.8</b></td><td><b>60.5</b></td><td><b>62.6</b></td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="ablation-panels reveal">
+      <div class="table-wrap reveal ablation-table-wrap">
         <h3 class="table-title">Cumulative Ablation Study</h3>
-        <div class="ablation-grid">
-          <div class="ablation-card">
-            <h4>LIBERO</h4>
-            <div class="ablation-bar" data-target="97.9"><div class="ablation-fill"></div></div>
-            <ul class="ablation-list">
-              <li><span class="ab-label">Baseline</span><span class="ab-val">90.2%</span></li>
-              <li><span class="ab-label">+ Future-frame pred.</span><span class="ab-val">+2.3%</span></li>
-              <li><span class="ab-label">+ Motion-CoT</span><span class="ab-val">+3.2%</span></li>
-              <li><span class="ab-label">+ RD + CDE</span><span class="ab-val">+1.6%</span></li>
-              <li><span class="ab-label">+ Causal decoupled</span><span class="ab-val">+0.8%</span></li>
-            </ul>
-          </div>
-          <div class="ablation-card">
-            <h4>LIBERO-Plus</h4>
-            <div class="ablation-bar" data-target="81.0"><div class="ablation-fill"></div></div>
-            <ul class="ablation-list">
-              <li><span class="ab-label">Baseline</span><span class="ab-val">67.3%</span></li>
-              <li><span class="ab-label">+ Future-frame pred.</span><span class="ab-val">+3.6%</span></li>
-              <li><span class="ab-label">+ Motion-CoT</span><span class="ab-val">+5.5%</span></li>
-              <li><span class="ab-label">+ RD + CDE</span><span class="ab-val">+3.1%</span></li>
-              <li><span class="ab-label">+ Causal decoupled</span><span class="ab-val">+1.5%</span></li>
-            </ul>
-          </div>
-        </div>
+        <table class="ablation-table">
+          <thead>
+            <tr>
+              <th>Future Predict</th>
+              <th>MotionCoT</th>
+              <th>RD</th>
+              <th>CDE</th>
+              <th>Decoupling</th>
+              <th>LIBERO</th>
+              <th>RoboCasa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>91.3</td><td>51.2</td></tr>
+            <tr><td>&#10003;</td><td>&times;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>93.6</td><td>54.8</td></tr>
+            <tr><td>&times;</td><td>&#10003;</td><td>&times;</td><td>&times;</td><td>&times;</td><td>94.5</td><td>56.7</td></tr>
+            <tr><td>&times;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&times;</td><td>96.1</td><td>59.8</td></tr>
+            <tr><td>&times;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>96.9</td><td>61.3</td></tr>
+            <tr class="highlight"><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td><b>97.9</b></td><td><b>62.6</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrap reveal realworld-table-wrap">
+        <h3 class="table-title">Real-World Evaluation on Agibot-G1</h3>
+        <table class="realworld-table">
+          <thead>
+            <tr>
+              <th rowspan="3">Method</th>
+              <th rowspan="3">Size</th>
+              <th colspan="8" class="th-group">Standard Tasks</th>
+              <th rowspan="3">Stand.<br>Avg.</th>
+              <th colspan="3" class="th-group">Generalization</th>
+              <th rowspan="3">Gen.<br>Avg.</th>
+              <th rowspan="3">Few-Shot<br>Avg. (10%)</th>
+            </tr>
+            <tr class="sub-header-row">
+              <th>Pen</th>
+              <th>Eraser</th>
+              <th>Corr.<br>Fluid</th>
+              <th>Charger</th>
+              <th>Pencil<br>Case</th>
+              <th>Stapler</th>
+              <th>Book</th>
+              <th>Trash</th>
+              <th>Flash+<br>Cam.Offs.</th>
+              <th>Desk</th>
+              <th>Color</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&pi;<sub>0</sub></td><td>3.3B</td><td>70</td><td>82</td><td>46</td><td>78</td><td>32</td><td>62</td><td>52</td><td>72</td><td>61.8</td><td>38</td><td>42</td><td>36</td><td>38.7</td><td>28.4</td></tr>
+            <tr><td>OpenVLA</td><td>7B</td><td>64</td><td>76</td><td>40</td><td>72</td><td>26</td><td>56</td><td>46</td><td>66</td><td>55.8</td><td>32</td><td>36</td><td>30</td><td>32.7</td><td>24.6</td></tr>
+            <tr><td>GR00T-N1</td><td>3.4B</td><td>74</td><td>86</td><td>50</td><td>82</td><td>36</td><td>66</td><td>56</td><td>76</td><td>65.8</td><td>42</td><td>46</td><td>40</td><td>42.7</td><td>32.8</td></tr>
+            <tr><td>&pi;<sub>0.5</sub></td><td>3.3B</td><td>80</td><td>90</td><td>56</td><td>86</td><td>42</td><td>72</td><td>62</td><td>82</td><td>71.3</td><td>48</td><td>52</td><td>44</td><td>48.0</td><td>38.2</td></tr>
+          </tbody>
+          <tbody class="mid-group">
+            <tr><td>Cosmos-Policy</td><td>6B</td><td>76</td><td>88</td><td>52</td><td>84</td><td>38</td><td>68</td><td>58</td><td>78</td><td>67.8</td><td>44</td><td>48</td><td>42</td><td>44.7</td><td>34.6</td></tr>
+            <tr><td>Fast-WAM</td><td>6B</td><td>82</td><td>92</td><td>58</td><td>88</td><td>44</td><td>74</td><td>64</td><td>84</td><td>73.3</td><td>50</td><td>54</td><td>46</td><td>50.0</td><td>40.8</td></tr>
+          </tbody>
+          <tbody>
+            <tr class="highlight"><td><b>PILOT (Ours)</b></td><td><b>5.4B</b></td><td><b>90</b></td><td><b>100</b></td><td><b>70</b></td><td><b>94</b></td><td><b>56</b></td><td><b>88</b></td><td><b>72</b></td><td><b>94</b></td><td><b>83.1</b></td><td><b>72</b></td><td><b>68</b></td><td><b>64</b></td><td><b>68.3</b></td><td><b>62.4</b></td></tr>
+          </tbody>
+        </table>
+        <p class="table-caption">Success rates (%) across 8 standard tasks, 3 generalization transfer tasks, and few-shot fine-tuning (10% data). Best results are in <b>bold</b>.</p>
       </div>
     </div>
   </section>
-
-  <!-- ======================================================= REAL-WORLD -->
   <section class="sec sec--alt" id="real-world">
     <div class="wrap">
-      <h2 class="sec-title reveal">Real-World Experiments</h2>
+      <h2 class="sec-title reveal">Demonstration in the real world</h2>
 
       <div class="real-figures reveal">
         <figure class="real-figure">
@@ -431,7 +477,7 @@
         </div>
         <p class="video-grid-caption">
           Simulation rollouts on RoboCasa-GR1 (24 tasks, 5 categories). PILOT achieves 62.6% average, with strong
-          performance on PnP Close (72.0%) and Novel From Tray (74.8%).
+          performance on Pick and Place (59.7%) and Articulated from Tray (74.8%).
         </p>
       </div>
     </div>

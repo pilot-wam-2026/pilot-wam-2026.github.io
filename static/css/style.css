@@ -416,8 +416,11 @@ html[data-theme="dark"] .nav {
 
 /* ================================================================ video grid section */
 .video-grid-section {
-  max-width: 1100px;
+  max-width: 100%;
   margin: 0 auto 40px;
+}
+.video-grid-section.hero-video {
+  max-width: 1100px;
 }
 
 .video-grid-title {
@@ -507,10 +510,10 @@ html[data-theme="dark"] .nav {
 /* ================================================================ motivation duo */
 .motivation-duo {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 24px;
   margin-top: 36px;
-  max-width: 900px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -537,7 +540,7 @@ html[data-theme="dark"] .nav {
 
 /* ================================================================ figure card (reused) */
 .figure-card {
-  max-width: 940px;
+  max-width: 100%;
   margin: 0 auto 32px;
   text-align: center;
   background: #fff;
@@ -1012,11 +1015,6 @@ html[data-theme="dark"] .trio-card {
     gap: 12px;
   }
 
-  .motivation-duo {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
   .real-figures { grid-template-columns: 1fr; }
 
   .steps { grid-template-columns: 1fr; }
@@ -1032,3 +1030,33 @@ html[data-theme="dark"] .trio-card {
   .btn-row { gap: 8px; }
   .btn { padding: 8px 14px; font-size: .82rem; }
 }
+
+/* ── Real-World Table ─────────────────────────────── */
+.realworld-table-wrap { overflow-x: auto; }
+.realworld-table { width: 100%; border-collapse: collapse; font-size: .82rem; min-width: 820px; }
+.realworld-table th,
+.realworld-table td { padding: 8px 7px; text-align: center; border-bottom: 1px solid var(--line-soft); white-space: nowrap; }
+.realworld-table th { background: var(--surface-2); font-weight: 600; font-size: .78rem; }
+.realworld-table th[rowspan] { vertical-align: middle; }
+.realworld-table th.th-group { text-align: center; border-bottom: 1px solid var(--line); }
+.realworld-table .sub-header-row th { font-weight: 500; font-size: .76rem; padding: 6px 5px; }
+.realworld-table td:first-child,
+.realworld-table th:first-child { text-align: left; }
+.realworld-table td:nth-child(2) { text-align: center; }
+.realworld-table .mid-group td { border-bottom: 1px solid var(--line-soft); }
+.realworld-table tbody + tbody.mid-group { border-top: 1px solid var(--line); }
+.realworld-table tbody + tbody:not(.mid-group) { border-top: 1px solid var(--line); }
+.realworld-table tr.highlight td { background: var(--yellow-ghost); font-weight: 600; }
+
+/* ── Ablation Table ───────────────────────────────── */
+.ablation-table-wrap { overflow-x: auto; }
+.ablation-table { width: auto; border-collapse: collapse; font-size: .84rem; min-width: 480px; margin: 0 auto; }
+.ablation-table th,
+.ablation-table td { padding: 9px 14px; text-align: center; border-bottom: 1px solid var(--line-soft); }
+.ablation-table th { background: var(--surface-2); font-weight: 600; }
+.ablation-table td:first-child,
+.ablation-table th:first-child { text-align: center; }
+.ablation-table tr.highlight td { background: var(--yellow-ghost); font-weight: 600; }
+
+/* ── Table caption ────────────────────────────────── */
+.table-caption { font-size: .8rem; color: var(--text-2); margin-top: 8px; text-align: left; }
