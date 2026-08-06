@@ -6,7 +6,7 @@
 
 This repository contains the project page for PILOT, deployed via GitHub Pages.
 
-**Live site:** [https://pilot-wam.github.io](https://pilot-wam.github.io)
+**Live site:** [https://pilot-wam-2026.github.io](https://pilot-wam-2026.github.io)
 
 ---
 
@@ -14,14 +14,14 @@ This repository contains the project page for PILOT, deployed via GitHub Pages.
 
 ### Prerequisites
 
-- A GitHub account (you already have: `pilot-wam`)
+- A GitHub account (you already have: `pilot-wam-2026`)
 - Git installed on your local machine
 - This project directory on your local machine
 
 ### Step 1: Create a new repository on GitHub
 
-1. Go to [https://github.com/new](https://github.com/new) (log in as `pilot-wam`)
-2. Repository name **must be** `pilot-wam.github.io` (this is the special name for a user/organization site)
+1. Go to [https://github.com/new](https://github.com/new) (log in as `pilot-wam-2026`)
+2. Repository name **must be** `pilot-wam-2026.github.io` (this is the special name for a user/organization site)
 3. Set visibility to **Public**
 4. Do NOT initialize with README, .gitignore, or license (we already have these)
 5. Click **Create repository**
@@ -41,7 +41,7 @@ git add .
 git commit -m "Initial commit: PILOT project page"
 
 # Add remote origin (use your actual GitHub token or SSH)
-git remote add origin https://github.com/pilot-wam/pilot-wam.github.io.git
+git remote add origin https://github.com/pilot-wam-2026/pilot-wam-2026.github.io.git
 
 # Push to GitHub
 git branch -M main
@@ -56,7 +56,7 @@ git push -u origin main
 
 ### Step 3: Enable GitHub Pages
 
-1. Go to your repository on GitHub: `https://github.com/pilot-wam/pilot-wam.github.io`
+1. Go to your repository on GitHub: `https://github.com/pilot-wam-2026/pilot-wam-2026.github.io`
 2. Click **Settings** tab
 3. In the left sidebar, click **Pages**
 4. Under "Build and deployment":
@@ -69,7 +69,7 @@ git push -u origin main
 - GitHub Pages will build and deploy your site automatically
 - This typically takes 1-5 minutes
 - You can check the deployment status under **Actions** tab in your repository
-- Once deployed, visit: [https://pilot-wam.github.io](https://pilot-wam.github.io)
+- Once deployed, visit: [https://pilot-wam-2026.github.io](https://pilot-wam-2026.github.io)
 
 ### Step 5: Future updates
 
