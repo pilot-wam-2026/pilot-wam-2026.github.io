@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PILOT: Physical Inference for Latent Optimized Trajectories</title>
-  <meta name="description" content="PILOT is an end-to-end World Action Model framework that introduces Representational Deduction and Motion-CoT to achieve state-of-the-art performance on RoboCasa-GR1 with 90% inference latency reduction." />
+  <title>Motion Chain of Thought: Disentangling Motion Semantics from Visual Representations for Robotic Manipulation</title>
+  <meta name="description" content="PILOT learns Motion Chain of Thought through state-transition supervision: 97.9% on LIBERO, 81.0% on LIBERO-Plus, 62.6% on RoboCasa-GR1, and 83.1% on real-world manipulation." />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="PILOT: Physical Inference for Latent Optimized Trajectories" />
-  <meta property="og:description" content="An end-to-end World Action Model with Representational Deduction and Motion-CoT, achieving 62.6% on RoboCasa-GR1 and 90% inference latency reduction." />
-  <meta property="og:image" content="media/figures/teaser.jpg" />
+  <meta property="og:title" content="Motion Chain of Thought: Disentangling Motion Semantics from Visual Representations for Robotic Manipulation" />
+  <meta property="og:description" content="Disentangling motion semantics from visual representations with PILOT: simulation benchmarks, zero-shot robustness, real-world generalization, and few-shot adaptation." />
+  <meta property="og:image" content="media/figures/motion-cot-teaser.png" />
+  <meta property="og:image:alt" content="Motion Chain of Thought separates high-level motion semantics from action trajectory refinement." />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23FFD968'/%3E%3Cstop offset='.35' stop-color='%23EBB3C6'/%3E%3Cstop offset='.65' stop-color='%23BCA5C3'/%3E%3Cstop offset='1' stop-color='%23D86689'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='30' font-weight='bold' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E" />
@@ -27,7 +28,7 @@
       document.documentElement.dataset.theme = t === "dark" ? "dark" : "light";
     })();
   </script>
-  <link rel="stylesheet" href="static/css/style.css?v=pilot-demo" />
+  <link rel="stylesheet" href="static/css/style.css?v=motion-cot-20260926" />
 </head>
 <body>
 
@@ -43,6 +44,7 @@
         <a href="#abstract">Overview</a>
         <a href="#method">Method</a>
         <a href="#results">Results</a>
+        <a href="#analysis">Analysis</a>
         <a href="#real-world">Real World</a>
         <a href="#simulation">Simulation</a>
         <a href="#bibtex">BibTeX</a>
@@ -60,8 +62,8 @@
     <div class="blob blob--1"></div>
     <div class="blob blob--2"></div>
     <div class="hero-inner">
-      <h1 class="hero-title reveal">PILOT</h1>
-      <p class="hero-sub reveal" style="--d:120ms">Decoupling Intention from Trajectory:<br>A Representational Deduction Framework for World Action Models</p>
+      <h1 class="hero-title paper-title reveal">Motion Chain of Thought: <span>Disentangling Motion Semantics from Visual Representations for Robotic Manipulation</span></h1>
+      <p class="hero-sub reveal" style="--d:120ms">PILOT learns what should change in the world before refining how the robot should move.</p>
 
       <!-- Author information retained only in source for the anonymous site.
       <p class="authors reveal" style="--d:180ms">
@@ -109,11 +111,19 @@
 
       <!-- Teaser figure -->
       <figure class="hero-teaser reveal" style="--d:340ms">
-        <img src="media/figures/teaser.jpg" alt="PILOT teaser: model comparison, key improvements, and success rates across benchmarks." data-zoom loading="eager" />
+        <img src="media/figures/motion-cot-teaser.svg" width="355" height="131" alt="Comparison of conventional visual-language-action and world-action models with PILOT's Motion Chain of Thought." data-zoom loading="eager" />
         <figcaption>
-          PILOT introduces Representational Deduction to bridge visual prediction and action generation, with Motion-CoT reasoning that decomposes high-level motion intent from low-level trajectory generation.
+          <b>From visual prediction to motion semantics.</b> Representational Deduction trains learnable
+          Motion-CoT tokens to capture state transitions, leaving the action decoder to refine the robot's trajectory.
         </figcaption>
       </figure>
+
+      <div class="stats reveal" style="--d:380ms">
+        <div class="stat"><span class="stat-val">97.9%</span><span class="stat-lbl">LIBERO</span><span class="sub">Four task suites</span></div>
+        <div class="stat"><span class="stat-val">81.0%</span><span class="stat-lbl">LIBERO-Plus</span><span class="sub">Zero-shot robustness</span></div>
+        <div class="stat"><span class="stat-val">62.6%</span><span class="stat-lbl">RoboCasa-GR1</span><span class="sub">24 manipulation tasks</span></div>
+        <div class="stat"><span class="stat-val">83.1%</span><span class="stat-lbl">Real-World</span><span class="sub">Eight standard tasks</span></div>
+      </div>
 
       <!-- Third-person real-robot video grid -->
       <div class="video-grid-section hero-video reveal" id="video" style="--d:420ms">
@@ -155,12 +165,6 @@
         </p>
       </div>
 
-      <div class="stats reveal" style="--d:500ms">
-        <div class="stat"><span class="stat-val">97.9%</span><span class="stat-lbl">LIBERO</span></div>
-        <div class="stat"><span class="stat-val">62.6%</span><span class="stat-lbl">RoboCasa-GR1</span></div>
-        <div class="stat"><span class="stat-val">83.1%</span><span class="stat-lbl">Real-World</span></div>
-        <div class="stat"><span class="stat-val">90%</span><span class="stat-lbl">Latency ↓</span></div>
-      </div>
     </div>
   </header>
 
@@ -170,32 +174,33 @@
       <h2 class="sec-title reveal">Overview</h2>
       <div class="abstract-text reveal">
         <p>
-          We present <b>PILOT</b>, an end-to-end <b>World Action Model</b> framework that introduces
-          <b>Representational Deduction (RD)</b> to bridge the gap between static visual prediction and
-          dynamic action generation. Unlike conventional world models that require costly visual generation
-          at inference time, PILOT computes latent residuals between frozen visual encoder states to extract
-          motion-relevant representations, achieving <b>90% inference latency reduction</b> while maintaining
-          competitive prediction quality.
+          Predicting what a future image looks like is not the same as understanding how an action changes
+          the world. Visual reconstruction can entangle background appearance with motion, forcing the action
+          model to infer high-level state evolution and low-level motor commands from the same representation.
+          <b>PILOT</b> addresses this with <b>Motion Chain of Thought (Motion-CoT)</b>: learnable latent tokens
+          that separate motion semantics from fine-grained trajectory generation.
         </p>
         <p>
-          PILOT further introduces <b>Motion-CoT</b> reasoning, which decomposes high-level motion intent from
-          low-level trajectory generation. This decomposition enables Motion-CoT tokens to naturally cluster by
-          action type in t-SNE space without explicit clustering supervision. Combined with a
-          <b>Causal Dynamics Engine (CDE)</b> that prevents diffusion noise from contaminating motion semantics
-          via causally-decoupled attention, PILOT achieves state-of-the-art performance: <b>97.9%</b> on LIBERO,
-          <b>62.6%</b> on RoboCasa-GR1, and <b>83.1%</b> real-world success rate on the Agibot-G1 humanoid robot.
+          <b>Representational Deduction (RD)</b> supervises these tokens through a <b>Causal Dynamics Engine
+          (CDE)</b>, which predicts future states in a frozen VJEPA2-AC representation space.
+          Causally-decoupled attention lets motion semantics guide action decoding without absorbing action
+          diffusion noise. Future observations are supervision targets, not inference inputs; neither future-frame
+          generation nor the CDE is needed to execute the policy.
+        </p>
+        <p>
+          Across simulation and real-robot manipulation, the model combines strong task performance with
+          <b>zero-shot robustness</b> and <b>data-efficient adaptation</b>: <b>81.0%</b> on LIBERO-Plus,
+          <b>68.3%</b> on real-world generalization settings, and <b>62.4%</b> real-world success when fine-tuned
+          with only <b>10% of the demonstrations</b>.
         </p>
       </div>
 
-      <!-- Motivation side-by-side figures -->
+      <!-- Representational motivation from the manuscript. -->
       <div class="motivation-duo reveal">
         <figure class="motivation-figure">
-          <img src="media/figures/motivation1.jpg" alt="Motivation: world model latency vs. PILOT efficiency." data-zoom loading="lazy" />
-          <figcaption>(a) Conventional world models require full visual generation at inference, while PILOT bypasses this via Representational Deduction.</figcaption>
-        </figure>
-        <figure class="motivation-figure">
-          <img src="media/figures/motivation2.jpg" alt="Motivation: Motion-CoT clustering and CDE attention." data-zoom loading="lazy" />
-          <figcaption>(b) Motion-CoT tokens naturally cluster by action type. CDE focuses variance on manipulation regions only.</figcaption>
+          <img src="media/figures/motivation1.jpg" width="2460" height="1483" alt="Manuscript Figure 2: action-type clusters and foreground-focused future representations." data-zoom loading="lazy" />
+          <figcaption>Representational motivation: action-type structure emerges in the latent space, while
+            future representations focus on the interaction region rather than background appearance.</figcaption>
         </figure>
       </div>
     </div>
@@ -207,13 +212,12 @@
       <h2 class="sec-title reveal">Method</h2>
 
       <figure class="figure-card reveal">
-        <img src="media/figures/framework.jpg" alt="PILOT framework overview." data-zoom loading="lazy" />
+        <img src="media/figures/framework.jpg" width="3826" height="2119" alt="PILOT framework overview." data-zoom loading="lazy" />
         <figcaption>
-          PILOT consists of three branches: 
-          (a) <b>World-Model</b> (Wan2.2) encodes observations and language instructions;
-          (b) <b>Action-Perceiver</b> uses learnable query tokens with <b>causally-decoupled attention</b> to extract motion semantics; 
-          (c) <b>CDE</b> supervises motion semantics by predicting future state transitions on frozen
-          VJEPA2-AC representations.
+          The <b>World-Model</b> encodes the current observation and instruction; the
+          <b>Action-Perceiver</b> distills Motion-CoT with learnable queries and uses it to guide
+          flow-matching action decoding. During training, the <b>CDE</b> predicts future VJEPA2-AC
+          representations conditioned on the current representation, motion semantics, and robot state.
         </figcaption>
       </figure>
 
@@ -221,27 +225,27 @@
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-body">
-            <h3>Representational Deduction</h3>
-            <p>Compute latent residuals between frozen visual encoder states (VJEPA2-AC) to bridge static visual
-               prediction and dynamic action generation, eliminating the need for costly world generation at inference.</p>
+            <h3>Learn Motion-Semantic Tokens</h3>
+            <p>A single understanding pass through the Wan2.2 backbone encodes the current observation and
+               instruction. A set of 64 learnable queries distills high-level motion semantics from this context.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-body">
-            <h3>Motion-CoT Reasoning</h3>
-            <p>Decompose high-level motion intent from low-level trajectory generation. Motion-CoT tokens naturally
-               cluster by action type in t-SNE space without explicit clustering supervision, enabling 90% latency
-               reduction by skipping world generation.</p>
+            <h3>Supervise State Transitions</h3>
+            <p>Representational Deduction trains the CDE to predict the frozen encoder's future-state
+               representation from the current one, conditioned on Motion-CoT and proprioception. A Smooth L1
+               objective teaches the queries what changes under an action, rather than how pixels should look.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-body">
-            <h3>Causal Dynamics Engine</h3>
-            <p>Predict future state transitions on frozen VJEPA2-AC representations with causally-decoupled attention,
-               preventing diffusion noise from contaminating motion semantics. PCA analysis shows CDE focuses variance
-               on manipulation regions only.</p>
+            <h3>Refine Actions Without Noise Leakage</h3>
+            <p>Causally-decoupled attention allows action tokens to attend to motion semantics, but blocks the
+               reverse flow of action noise into the query tokens. Flow-time conditioning is applied only to
+               action tokens, so the motion context remains stable during trajectory refinement.</p>
           </div>
         </div>
       </div>
@@ -250,17 +254,20 @@
         <div class="trio-card">
           <div class="trio-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 15h14v3H5z"/></svg></div>
           <h3>World-Model Branch</h3>
-          <p>Wan2.2 with 196x2048 context encodes visual observations and language instructions into a unified latent space.</p>
+          <p>Wan2.2 provides a 196-token vision-language context. Auxiliary future-frame prediction preserves
+             the pretrained visual and physical prior during training.</p>
         </div>
         <div class="trio-card">
           <div class="trio-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg></div>
           <h3>Action-Model Branch</h3>
-          <p>DiT flow-matching with 64 query tokens generates actions in 4 denoising steps, guided by Motion-CoT tokens.</p>
+          <p>A Perceiver-style flow-matching head learns motion semantics and decodes continuous action
+             chunks. At inference, it uses only the current observation, instruction, and robot state.</p>
         </div>
         <div class="trio-card">
           <div class="trio-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></div>
-          <h3>RD + CDE Branch</h3>
-          <p>VJEPA2-AC (frozen) provides static representations. CDE predicts state transitions with causally-decoupled attention.</p>
+          <h3>Training-Only RD Branch</h3>
+          <p>The frozen VJEPA2-AC encoder supplies 256 patch tokens of dimension 1408. The trainable CDE
+             predicts the future representation, and is omitted from the policy's inference path.</p>
         </div>
       </div>
     </div>
@@ -269,121 +276,206 @@
   <!-- ============================================================ RESULTS -->
   <section class="sec" id="results">
     <div class="wrap">
-      <h2 class="sec-title reveal">Results in the simulation and the real scenarios</h2>
-
-      <div class="table-wrap reveal">
-        <h3 class="table-title">RoboCasa-GR1 Benchmark (24 tasks, 5 categories)</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Method</th>
-              <th>Pick and Place (6)</th>
-              <th>Art. from Cuttingboard (5)</th>
-              <th>Art. from Placemat (4)</th>
-              <th>Art. from Tray (5)</th>
-              <th>Art. from Plate (4)</th>
-              <th><b>Average</b></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>GR00T N1.5</td><td>45.3</td><td>46.4</td><td>45.5</td><td>48.8</td><td>56.5</td><td>48.2</td></tr>
-            <tr><td>GR00T N1.6</td><td>24.2</td><td>56.9</td><td>51.9</td><td>55.1</td><td>57.5</td><td>47.6</td></tr>
-            <tr><td>DiT4DiT</td><td>50.3</td><td>57.6</td><td>39.0</td><td>46.4</td><td>60.0</td><td>50.8</td></tr>
-            <tr><td>UWM-XL</td><td>30.7</td><td>17.4</td><td>10.0</td><td>17.2</td><td>16.2</td><td>19.2</td></tr>
-            <tr><td>StarVLA</td><td>50.3</td><td>52.8</td><td>38.0</td><td>39.2</td><td>58.5</td><td>47.8</td></tr>
-            <tr><td>LDA</td><td>56.3</td><td>64.2</td><td>47.8</td><td>53.4</td><td>53.0</td><td>55.4</td></tr>
-            <tr><td>VP-VLA</td><td>54.3</td><td>60.8</td><td>54.5</td><td>46.0</td><td>53.5</td><td>53.8</td></tr>
-            <tr><td>PhysBrain</td><td>52.7</td><td>52.0</td><td>48.0</td><td>46.0</td><td>62.5</td><td>50.0</td></tr>
-            <tr><td>LangForce</td><td>55.7</td><td>53.2</td><td>48.0</td><td>47.2</td><td>58.5</td><td>52.6</td></tr>
-            <tr><td>FastWAM</td><td>52.7</td><td>60.6</td><td>47.2</td><td>54.8</td><td>58.5</td><td>56.7</td></tr>
-            <tr><td>Motus</td><td>49.3</td><td>56.6</td><td>43.8</td><td>50.8</td><td>54.5</td><td>53.1</td></tr>
-            <tr class="highlight"><td><b>PILOT (Ours)</b></td><td><b>59.7</b></td><td><b>61.2</b></td><td><b>56.0</b></td><td><b>74.8</b></td><td><b>60.5</b></td><td><b>62.6</b></td></tr>
-          </tbody>
-        </table>
+      <h2 class="sec-title reveal">Experiments</h2>
+      <p class="section-intro reveal">Evaluating task success, robustness to visual and structural changes,
+        and adaptation with limited real-robot demonstrations. Results below reproduce the manuscript's
+        reported success rates (%).</p>
+      <div class="result-index reveal" aria-label="Experiment tables">
+        <a href="#libero-results">LIBERO</a><a href="#libero-plus-results">LIBERO-Plus</a>
+        <a href="#robocasa-results">RoboCasa-GR1</a><a href="#realworld-results">Real World</a>
+        <a href="#component-ablation">Ablation</a><a href="#efficiency-results">Efficiency</a>
       </div>
-
-      <div class="table-wrap reveal ablation-table-wrap">
-        <h3 class="table-title">Cumulative Ablation Study</h3>
-        <table class="ablation-table">
-          <thead>
-            <tr>
-              <th>Future Predict</th>
-              <th>MotionCoT</th>
-              <th>RD</th>
-              <th>CDE</th>
-              <th>Decoupling</th>
-              <th>LIBERO</th>
-              <th>RoboCasa</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>91.3</td><td>51.2</td></tr>
-            <tr><td>&#10003;</td><td>&times;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>93.6</td><td>54.8</td></tr>
-            <tr><td>&times;</td><td>&#10003;</td><td>&times;</td><td>&times;</td><td>&times;</td><td>94.5</td><td>56.7</td></tr>
-            <tr><td>&times;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&times;</td><td>96.1</td><td>59.8</td></tr>
-            <tr><td>&times;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>96.9</td><td>61.3</td></tr>
-            <tr class="highlight"><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td><b>97.9</b></td><td><b>62.6</b></td></tr>
-          </tbody>
+      <div class="table-wrap reveal" id="libero-results" tabindex="0" role="region" aria-labelledby="libero-results-title">
+        <h3 class="table-title" id="libero-results-title">LIBERO: Four Manipulation Suites</h3>
+        <table class="benchmark-table" aria-describedby="libero-results-caption">
+          <thead><tr><th scope="col">Method</th><th scope="col">Size</th><th scope="col">Spatial</th><th scope="col">Object</th><th scope="col">Goal</th><th scope="col">Long</th><th scope="col">Average</th></tr></thead>
+          <tbody><tr class="model-group"><th colspan="7" scope="rowgroup">Vision-Language-Action Models</th></tr>
+<tr><th scope="row">&pi;<sub>0.5</sub></th><td>3.5B</td><td>98.8</td><td>98.2</td><td>98.0</td><td>92.4</td><td>96.2</td></tr>
+<tr><th scope="row">GR00T-N1.6</th><td>3.3B</td><td>97.7</td><td>98.5</td><td>97.5</td><td>94.4</td><td>97.0</td></tr>
+<tr><th scope="row">OpenVLA-OFT</th><td>7B</td><td>97.6</td><td>98.4</td><td>97.9</td><td>94.5</td><td>97.1</td></tr>
+<tr class="model-group"><th colspan="7" scope="rowgroup">Latent Action Models</th></tr>
+<tr><th scope="row">LAPA</th><td>7B</td><td>73.8</td><td>74.6</td><td>58.8</td><td>55.4</td><td>65.7</td></tr>
+<tr><th scope="row">UniVLA</th><td>7B</td><td>96.5</td><td>96.8</td><td>95.6</td><td>92.0</td><td>95.2</td></tr>
+<tr><th scope="row">Mantis</th><td>5.8B</td><td>98.8</td><td>99.2</td><td>94.4</td><td>94.2</td><td>96.7</td></tr>
+<tr><th scope="row">VLA-JEPA</th><td>3B</td><td>96.2</td><td>99.6</td><td>97.2</td><td>95.8</td><td>97.2</td></tr>
+<tr class="model-group"><th colspan="7" scope="rowgroup">World-Action Models</th></tr>
+<tr><th scope="row">F1</th><td>4B</td><td>98.2</td><td>97.8</td><td>95.4</td><td>91.3</td><td>95.7</td></tr>
+<tr><th scope="row">Fast-WAM</th><td>6B</td><td>98.2</td><td>100.0</td><td>97.0</td><td>95.2</td><td>97.6</td></tr>
+<tr><th scope="row">Motus</th><td>8B</td><td>96.8</td><td>99.8</td><td>96.6</td><td>97.6</td><td>97.7</td></tr>
+<tr class="highlight"><th scope="row">PILOT (Ours)</th><td>5.4B</td><td>97.1</td><td>99.2</td><td>98.1</td><td>97.2</td><td>97.9</td></tr></tbody>
         </table>
+        <p class="table-caption" id="libero-results-caption">Manuscript Table 1. PILOT reaches 97.9% average success, with 98.1% on Goal and 97.2% on Long. Model sizes and suite scores are reported as in the manuscript.</p>
       </div>
-
-      <div class="table-wrap reveal realworld-table-wrap">
-        <h3 class="table-title">Real-World Evaluation on Agibot-G1</h3>
-        <table class="realworld-table">
-          <thead>
-            <tr>
-              <th rowspan="3">Method</th>
-              <th rowspan="3">Size</th>
-              <th colspan="8" class="th-group">Standard Tasks</th>
-              <th rowspan="3">Stand.<br>Avg.</th>
-              <th colspan="3" class="th-group">Generalization</th>
-              <th rowspan="3">Gen.<br>Avg.</th>
-              <th rowspan="3">Few-Shot<br>Avg. (10%)</th>
-            </tr>
-            <tr class="sub-header-row">
-              <th>Pen</th>
-              <th>Eraser</th>
-              <th>Corr.<br>Fluid</th>
-              <th>Charger</th>
-              <th>Pencil<br>Case</th>
-              <th>Stapler</th>
-              <th>Book</th>
-              <th>Trash</th>
-              <th>Flash+<br>Cam.Offs.</th>
-              <th>Desk</th>
-              <th>Color</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>&pi;<sub>0</sub></td><td>3.3B</td><td>70</td><td>82</td><td>46</td><td>78</td><td>32</td><td>62</td><td>52</td><td>72</td><td>61.8</td><td>38</td><td>42</td><td>36</td><td>38.7</td><td>28.4</td></tr>
-            <tr><td>OpenVLA</td><td>7B</td><td>64</td><td>76</td><td>40</td><td>72</td><td>26</td><td>56</td><td>46</td><td>66</td><td>55.8</td><td>32</td><td>36</td><td>30</td><td>32.7</td><td>24.6</td></tr>
-            <tr><td>GR00T-N1</td><td>3.4B</td><td>74</td><td>86</td><td>50</td><td>82</td><td>36</td><td>66</td><td>56</td><td>76</td><td>65.8</td><td>42</td><td>46</td><td>40</td><td>42.7</td><td>32.8</td></tr>
-            <tr><td>&pi;<sub>0.5</sub></td><td>3.3B</td><td>80</td><td>90</td><td>56</td><td>86</td><td>42</td><td>72</td><td>62</td><td>82</td><td>71.3</td><td>48</td><td>52</td><td>44</td><td>48.0</td><td>38.2</td></tr>
-          </tbody>
-          <tbody class="mid-group">
-            <tr><td>Cosmos-Policy</td><td>6B</td><td>76</td><td>88</td><td>52</td><td>84</td><td>38</td><td>68</td><td>58</td><td>78</td><td>67.8</td><td>44</td><td>48</td><td>42</td><td>44.7</td><td>34.6</td></tr>
-            <tr><td>Fast-WAM</td><td>6B</td><td>82</td><td>92</td><td>58</td><td>88</td><td>44</td><td>74</td><td>64</td><td>84</td><td>73.3</td><td>50</td><td>54</td><td>46</td><td>50.0</td><td>40.8</td></tr>
-          </tbody>
-          <tbody>
-            <tr class="highlight"><td><b>PILOT (Ours)</b></td><td><b>5.4B</b></td><td><b>90</b></td><td><b>100</b></td><td><b>70</b></td><td><b>94</b></td><td><b>56</b></td><td><b>88</b></td><td><b>72</b></td><td><b>94</b></td><td><b>83.1</b></td><td><b>72</b></td><td><b>68</b></td><td><b>64</b></td><td><b>68.3</b></td><td><b>62.4</b></td></tr>
-          </tbody>
+      <div class="table-wrap reveal" id="libero-plus-results" tabindex="0" role="region" aria-labelledby="libero-plus-results-title">
+        <h3 class="table-title" id="libero-plus-results-title">LIBERO-Plus: Zero-Shot Robustness</h3>
+        <table class="benchmark-table" aria-describedby="libero-plus-results-caption">
+          <thead><tr><th scope="col">Method</th><th scope="col">Size</th><th scope="col">Camera</th><th scope="col">Robot</th><th scope="col">Language</th><th scope="col">Lighting</th><th scope="col">Background</th><th scope="col">Noise</th><th scope="col">Layout</th><th scope="col">Average</th></tr></thead>
+          <tbody><tr class="model-group"><th colspan="10" scope="rowgroup">Vision-Language-Action Models</th></tr>
+<tr><th scope="row">ECoT</th><td>3B</td><td>0.3</td><td>26.8</td><td>40.2</td><td>42.6</td><td>16.4</td><td>10.2</td><td>36.9</td><td>24.3</td></tr>
+<tr><th scope="row">Spatial Forcing</th><td>3.3B</td><td>20.1</td><td>13.4</td><td>40.9</td><td>29.1</td><td>33.4</td><td>25.7</td><td>39.3</td><td>29.1</td></tr>
+<tr><th scope="row">&pi;<sub>0</sub>-FAST</th><td>3.3B</td><td>65.1</td><td>21.6</td><td>61.0</td><td>73.2</td><td>73.2</td><td>74.4</td><td>68.8</td><td>61.6</td></tr>
+<tr><th scope="row">OpenVLA-OFT</th><td>7B</td><td>56.4</td><td>31.9</td><td>79.5</td><td>88.7</td><td>93.3</td><td>75.8</td><td>74.2</td><td>69.6</td></tr>
+<tr class="model-group"><th colspan="10" scope="rowgroup">Latent Action Models</th></tr>
+<tr><th scope="row">UniVLA</th><td>7B</td><td>1.8</td><td>46.2</td><td>69.6</td><td>69.0</td><td>81.0</td><td>21.2</td><td>31.9</td><td>42.9</td></tr>
+<tr><th scope="row">PokeVLA</th><td>7B</td><td>84.7</td><td>46.1</td><td>84.8</td><td>94.6</td><td>82.6</td><td>89.8</td><td>77.2</td><td>79.3</td></tr>
+<tr class="model-group"><th colspan="10" scope="rowgroup">World-Action Models</th></tr>
+<tr><th scope="row">WorldVLA</th><td>7B</td><td>0.1</td><td>27.9</td><td>41.6</td><td>43.7</td><td>17.1</td><td>10.9</td><td>38.0</td><td>25.0</td></tr>
+<tr><th scope="row">Fast-WAM</th><td>6B</td><td>16.4</td><td>44.5</td><td>68.9</td><td>78.2</td><td>53.7</td><td>37.7</td><td>60.7</td><td>51.5</td></tr>
+<tr class="highlight"><th scope="row">PILOT (Ours)</th><td>5.4B</td><td>76.0</td><td>70.0</td><td>84.0</td><td>92.0</td><td>85.0</td><td>78.0</td><td>82.0</td><td>81.0</td></tr></tbody>
         </table>
-        <p class="table-caption">Success rates (%) across 8 standard tasks, 3 generalization transfer tasks, and few-shot fine-tuning (10% data). Best results are in <b>bold</b>.</p>
+        <p class="table-caption" id="libero-plus-results-caption">Manuscript Table 2. Zero-shot transfer from standard LIBERO across seven perturbation types. PILOT reaches 81.0% overall, including 70.0% under robot changes and 82.0% under layout changes.</p>
+      </div>
+      <div class="table-wrap reveal" id="robocasa-results" tabindex="0" role="region" aria-labelledby="robocasa-results-title">
+        <h3 class="table-title" id="robocasa-results-title">RoboCasa-GR1: 24 Tasks Across Five Categories</h3>
+        <table class="benchmark-table" aria-describedby="robocasa-results-caption">
+          <thead><tr><th scope="col">Method</th><th scope="col">Pick and Place (6)</th><th scope="col">From Cuttingboard (5)</th><th scope="col">From Placemat (4)</th><th scope="col">From Tray (5)</th><th scope="col">From Plate (4)</th><th scope="col">Average</th></tr></thead>
+          <tbody><tr><th scope="row">GR00T N1.5</th><td>45.3</td><td>46.4</td><td>45.5</td><td>48.8</td><td>56.5</td><td>48.2</td></tr>
+<tr><th scope="row">GR00T N1.6</th><td>24.2</td><td>56.9</td><td>51.9</td><td>55.1</td><td>57.5</td><td>47.6</td></tr>
+<tr><th scope="row">DiT4DiT</th><td>50.3</td><td>57.6</td><td>39.0</td><td>46.4</td><td>60.0</td><td>50.8</td></tr>
+<tr><th scope="row">UWM-XL</th><td>30.7</td><td>17.4</td><td>10.0</td><td>17.2</td><td>16.2</td><td>19.2</td></tr>
+<tr><th scope="row">StarVLA</th><td>50.3</td><td>52.8</td><td>38.0</td><td>39.2</td><td>58.5</td><td>47.8</td></tr>
+<tr><th scope="row">LDA</th><td>56.3</td><td>64.2</td><td>47.8</td><td>53.4</td><td>53.0</td><td>55.4</td></tr>
+<tr><th scope="row">VP-VLA</th><td>54.3</td><td>60.8</td><td>54.5</td><td>46.0</td><td>53.5</td><td>53.8</td></tr>
+<tr><th scope="row">PhysBrain</th><td>52.7</td><td>52.0</td><td>48.0</td><td>46.0</td><td>62.5</td><td>50.0</td></tr>
+<tr><th scope="row">LangForce</th><td>55.7</td><td>53.2</td><td>48.0</td><td>47.2</td><td>58.5</td><td>52.6</td></tr>
+<tr><th scope="row">FastWAM</th><td>52.7</td><td>60.6</td><td>47.2</td><td>54.8</td><td>58.5</td><td>56.7</td></tr>
+<tr><th scope="row">Motus</th><td>49.3</td><td>56.6</td><td>43.8</td><td>50.8</td><td>54.5</td><td>53.1</td></tr>
+<tr class="highlight"><th scope="row">PILOT (Ours)</th><td>59.7</td><td>61.2</td><td>56.0</td><td>74.8</td><td>60.5</td><td>62.6</td></tr></tbody>
+        </table>
+        <p class="table-caption" id="robocasa-results-caption">Manuscript Table 3. PILOT achieves 62.6% overall, compared with 56.7% for FastWAM; the largest category result is 74.8% for tasks starting from a tray.</p>
+      </div>
+      <details class="result-details">
+        <summary>All 24 RoboCasa-GR1 Tasks and Baselines</summary>
+        <p class="table-caption">Manuscript Table 10. PnP = pick and place; Nv = novel; CB = cuttingboard;
+          PM = placemat; TR = tray; PL = plate; CbBox = cardboard box; TBasket = tiered basket;
+          TShelf = tiered shelf; Cab. = cabinet; Micro. = microwave. Reported category and overall averages are retained.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="Full RoboCasa-GR1 results">
+          <table class="benchmark-table per-task-table" id="robocasa-full">
+            <thead><tr><th scope="col">Task</th><th scope="col">GR00T N1.5</th><th scope="col">GR00T N1.6</th><th scope="col">DiT4DiT</th><th scope="col">UWM-XL</th><th scope="col">StarVLA</th><th scope="col">LDA</th><th scope="col">VP-VLA</th><th scope="col">PhysBrain</th><th scope="col">LangForce</th><th scope="col">FastWAM</th><th scope="col">Motus</th><th scope="col">PILOT (Ours)</th></tr></thead>
+            <tbody><tr class="model-group"><th colspan="13" scope="rowgroup">PnP Close</th></tr><tr><th scope="row">PnP Bottle to Cab.</th><td>54</td><td>51.5</td><td>48</td><td>41</td><td>46</td><td>76</td><td>54</td><td>74</td><td>72</td><td>58</td><td>55</td><td>70</td></tr>
+<tr><th scope="row">PnP Can to Drawer</th><td>50</td><td>13</td><td>74</td><td>53</td><td>80</td><td>71</td><td>72</td><td>68</td><td>78</td><td>60</td><td>57</td><td>54</td></tr>
+<tr><th scope="row">PnP Cup to Drawer</th><td>38</td><td>8.5</td><td>52</td><td>12</td><td>54</td><td>41</td><td>44</td><td>42</td><td>46</td><td>45</td><td>42</td><td>50</td></tr>
+<tr><th scope="row">PnP Milk to Micro.</th><td>60</td><td>14</td><td>50</td><td>25</td><td>48</td><td>52</td><td>74</td><td>54</td><td>56</td><td>54</td><td>50</td><td>68</td></tr>
+<tr><th scope="row">PnP Potato to Micro.</th><td>32</td><td>41.5</td><td>36</td><td>29</td><td>28</td><td>41</td><td>34</td><td>24</td><td>36</td><td>43</td><td>40</td><td>62</td></tr>
+<tr><th scope="row">PnP Wine to Cab.</th><td>38</td><td>16.5</td><td>42</td><td>24</td><td>46</td><td>57</td><td>48</td><td>54</td><td>46</td><td>56</td><td>52</td><td>54</td></tr>
+<tr class="category-average"><th scope="row">PnP * to * Close (Avg)</th><td>45.3</td><td>24.2</td><td>50.3</td><td>30.7</td><td>50.3</td><td>56.3</td><td>54.3</td><td>52.7</td><td>55.7</td><td>52.7</td><td>49.3</td><td>59.7</td></tr>
+<tr class="model-group"><th colspan="13" scope="rowgroup">PnP Novel From Cuttingboard</th></tr><tr><th scope="row">NvCB to Basket</th><td>38</td><td>58</td><td>52</td><td>18</td><td>48</td><td>65</td><td>66</td><td>62</td><td>66</td><td>64</td><td>60</td><td>84</td></tr>
+<tr><th scope="row">NvCB to CbBox</th><td>46</td><td>46.5</td><td>48</td><td>14</td><td>40</td><td>69</td><td>54</td><td>44</td><td>40</td><td>58</td><td>54</td><td>58</td></tr>
+<tr><th scope="row">NvCB to Pan</th><td>58</td><td>68.5</td><td>76</td><td>20</td><td>68</td><td>75</td><td>74</td><td>56</td><td>68</td><td>72</td><td>68</td><td>86</td></tr>
+<tr><th scope="row">NvCB to Pot</th><td>62</td><td>65</td><td>62</td><td>25</td><td>52</td><td>61</td><td>54</td><td>58</td><td>48</td><td>59</td><td>55</td><td>44</td></tr>
+<tr><th scope="row">NvCB to TBasket</th><td>28</td><td>46.5</td><td>50</td><td>10</td><td>56</td><td>51</td><td>56</td><td>40</td><td>44</td><td>50</td><td>46</td><td>34</td></tr>
+<tr class="category-average"><th scope="row">Cuttingboard * (Avg)</th><td>46.4</td><td>56.9</td><td>57.6</td><td>17.4</td><td>52.8</td><td>64.2</td><td>60.8</td><td>52</td><td>53.2</td><td>60.6</td><td>56.6</td><td>61.2</td></tr>
+<tr class="model-group"><th colspan="13" scope="rowgroup">PnP Novel From Placemat</th></tr><tr><th scope="row">NvPM to Basket</th><td>30</td><td>58.5</td><td>50</td><td>16</td><td>42</td><td>53</td><td>48</td><td>42</td><td>54</td><td>55</td><td>51</td><td>72</td></tr>
+<tr><th scope="row">NvPM to Bowl</th><td>60</td><td>57.5</td><td>56</td><td>10</td><td>44</td><td>55</td><td>74</td><td>56</td><td>62</td><td>58</td><td>54</td><td>58</td></tr>
+<tr><th scope="row">NvPM to Plate</th><td>56</td><td>63</td><td>32</td><td>12</td><td>48</td><td>59</td><td>70</td><td>80</td><td>52</td><td>54</td><td>50</td><td>64</td></tr>
+<tr><th scope="row">NvPM to TShelf</th><td>26</td><td>28.5</td><td>18</td><td>2</td><td>18</td><td>24</td><td>26</td><td>14</td><td>24</td><td>22</td><td>20</td><td>30</td></tr>
+<tr class="category-average"><th scope="row">Placemat * (Avg)</th><td>45.5</td><td>51.9</td><td>39</td><td>10</td><td>38</td><td>47.8</td><td>54.5</td><td>48</td><td>48</td><td>47.2</td><td>43.8</td><td>56</td></tr>
+<tr class="model-group"><th colspan="13" scope="rowgroup">PnP Novel From Tray</th></tr><tr><th scope="row">NvTR to CbBox</th><td>52</td><td>51.5</td><td>38</td><td>25</td><td>38</td><td>65</td><td>44</td><td>40</td><td>50</td><td>62</td><td>58</td><td>86</td></tr>
+<tr><th scope="row">NvTR to Plate</th><td>48</td><td>71</td><td>56</td><td>18</td><td>56</td><td>63</td><td>66</td><td>66</td><td>58</td><td>64</td><td>60</td><td>94</td></tr>
+<tr><th scope="row">NvTR to Pot</th><td>60</td><td>64.5</td><td>54</td><td>25</td><td>50</td><td>55</td><td>38</td><td>52</td><td>62</td><td>60</td><td>56</td><td>92</td></tr>
+<tr><th scope="row">NvTR to TBasket</th><td>52</td><td>57</td><td>46</td><td>16</td><td>36</td><td>51</td><td>58</td><td>50</td><td>44</td><td>52</td><td>48</td><td>80</td></tr>
+<tr><th scope="row">NvTR to TShelf</th><td>32</td><td>31.5</td><td>38</td><td>2</td><td>16</td><td>33</td><td>24</td><td>22</td><td>22</td><td>36</td><td>32</td><td>22</td></tr>
+<tr class="category-average"><th scope="row">Tray * (Avg)</th><td>48.8</td><td>55.1</td><td>46.4</td><td>17.2</td><td>39.2</td><td>53.4</td><td>46</td><td>46</td><td>47.2</td><td>54.8</td><td>50.8</td><td>74.8</td></tr>
+<tr class="model-group"><th colspan="13" scope="rowgroup">PnP Novel From Plate</th></tr><tr><th scope="row">NvPL to Bowl</th><td>58</td><td>57</td><td>56</td><td>8</td><td>60</td><td>53</td><td>52</td><td>54</td><td>54</td><td>56</td><td>52</td><td>52</td></tr>
+<tr><th scope="row">NvPL to CbBox</th><td>44</td><td>43.5</td><td>58</td><td>10</td><td>50</td><td>43</td><td>44</td><td>50</td><td>48</td><td>50</td><td>46</td><td>52</td></tr>
+<tr><th scope="row">NvPL to Pan</th><td>60</td><td>51</td><td>68</td><td>20</td><td>54</td><td>55</td><td>56</td><td>68</td><td>54</td><td>60</td><td>56</td><td>50</td></tr>
+<tr><th scope="row">NvPL to Plate</th><td>64</td><td>78.7</td><td>58</td><td>27</td><td>70</td><td>61</td><td>62</td><td>78</td><td>78</td><td>68</td><td>64</td><td>88</td></tr>
+<tr class="category-average"><th scope="row">Plate * (Avg)</th><td>56.5</td><td>57.5</td><td>60</td><td>16.2</td><td>58.5</td><td>53</td><td>53.5</td><td>62.5</td><td>58.5</td><td>58.5</td><td>54.5</td><td>60.5</td></tr>
+<tr class="category-average"><th scope="row">Average (All 24 Tasks)</th><td>48.2</td><td>47.6</td><td>50.8</td><td>19.2</td><td>47.8</td><td>55.4</td><td>53.8</td><td>50</td><td>52.6</td><td>56.7</td><td>53.1</td><td>62.6</td></tr></tbody>
+          </table>
+        </div>
+      </details>
+      <div class="evidence-grid reveal">
+        <article class="evidence-card"><span class="evidence-value">83.1%</span><h3>Standard Manipulation</h3>
+          <p>Eight desktop tasks on Agibot-G1, evaluated with 50 rollouts per task.</p></article>
+        <article class="evidence-card"><span class="evidence-value">68.3%</span><h3>Generalization Transfer</h3>
+          <p>Lighting and camera shifts, a replaced desk surface, and changed object appearance.</p></article>
+        <article class="evidence-card"><span class="evidence-value">62.4%</span><h3>Few-Shot Adaptation</h3>
+          <p>Fine-tuning with only 10% of demonstrations, compared with 40.8% for Fast-WAM.</p></article>
+      </div>
+      <div class="table-wrap reveal" id="realworld-results" tabindex="0" role="region" aria-labelledby="realworld-title">
+        <h3 class="table-title" id="realworld-title">Agibot-G1: Standard Tasks, Generalization, and Few-Shot Learning</h3>
+        <table class="realworld-table benchmark-table" aria-describedby="realworld-caption">
+          <thead>
+            <tr><th rowspan="2" scope="col">Method</th><th rowspan="2" scope="col">Size</th>
+              <th colspan="8" scope="colgroup">Standard Tasks</th><th rowspan="2" scope="col">Standard<br>Average</th>
+              <th colspan="3" scope="colgroup">Generalization</th><th rowspan="2" scope="col">Generalization<br>Average</th>
+              <th rowspan="2" scope="col">Few-Shot<br>(10% Data)</th></tr>
+            <tr><th scope="col">Pen</th><th scope="col">Eraser</th><th scope="col">Correction<br>Fluid</th><th scope="col">Charger</th><th scope="col">Pencil<br>Case</th><th scope="col">Stapler</th><th scope="col">Book</th><th scope="col">Trash</th><th scope="col">Flash +<br>Camera Offset</th><th scope="col">Desk</th><th scope="col">Color</th></tr>
+          </thead>
+          <tbody><tr><th scope="row">&pi;<sub>0</sub></th><td>3.3B</td><td>70</td><td>82</td><td>46</td><td>78</td><td>32</td><td>62</td><td>52</td><td>72</td><td>61.8</td><td>38</td><td>42</td><td>36</td><td>38.7</td><td>28.4</td></tr>
+<tr><th scope="row">OpenVLA</th><td>7B</td><td>64</td><td>76</td><td>40</td><td>72</td><td>26</td><td>56</td><td>46</td><td>66</td><td>55.8</td><td>32</td><td>36</td><td>30</td><td>32.7</td><td>24.6</td></tr>
+<tr><th scope="row">GR00T-N1</th><td>3.4B</td><td>74</td><td>86</td><td>50</td><td>82</td><td>36</td><td>66</td><td>56</td><td>76</td><td>65.8</td><td>42</td><td>46</td><td>40</td><td>42.7</td><td>32.8</td></tr>
+<tr><th scope="row">&pi;<sub>0.5</sub></th><td>3.3B</td><td>80</td><td>90</td><td>56</td><td>86</td><td>42</td><td>72</td><td>62</td><td>82</td><td>71.3</td><td>48</td><td>52</td><td>44</td><td>48.0</td><td>38.2</td></tr>
+<tr><th scope="row">Cosmos-Policy</th><td>6B</td><td>76</td><td>88</td><td>52</td><td>84</td><td>38</td><td>68</td><td>58</td><td>78</td><td>67.8</td><td>44</td><td>48</td><td>42</td><td>44.7</td><td>34.6</td></tr>
+<tr><th scope="row">Fast-WAM</th><td>6B</td><td>82</td><td>92</td><td>58</td><td>88</td><td>44</td><td>74</td><td>64</td><td>84</td><td>73.3</td><td>50</td><td>54</td><td>46</td><td>50.0</td><td>40.8</td></tr>
+<tr class="highlight"><th scope="row">PILOT (Ours)</th><td>5.4B</td><td>90</td><td>100</td><td>70</td><td>94</td><td>56</td><td>88</td><td>72</td><td>94</td><td>83.1</td><td>72</td><td>68</td><td>64</td><td>68.3</td><td>62.4</td></tr></tbody>
+        </table>
+        <p class="table-caption" id="realworld-caption">Manuscript Table 4. Standard evaluation uses 50 rollouts per task.
+          The generalization average covers three transfer settings; few-shot results use 10% of the training
+          demonstrations. These are distinct evaluation settings, not subsets to be combined into one score.</p>
+      </div>
+      <div class="table-wrap reveal" id="component-ablation" tabindex="0" role="region" aria-labelledby="ablation-title">
+        <h3 class="table-title" id="ablation-title">Cumulative Component Ablation</h3>
+        <table class="ablation-table benchmark-table" aria-describedby="ablation-caption">
+          <thead><tr><th scope="col">Future Prediction</th><th scope="col">Motion-CoT</th><th scope="col">RD</th><th scope="col">CDE</th><th scope="col">Decoupled Attention</th><th scope="col">LIBERO</th><th scope="col">RoboCasa-GR1</th></tr></thead>
+          <tbody><tr><td><span aria-label="Disabled">&times;</span></td><td><span aria-label="Disabled">&times;</span></td><td><span aria-label="Not applicable">&ndash;</span></td><td><span aria-label="Not applicable">&ndash;</span></td><td><span aria-label="Not applicable">&ndash;</span></td><td>91.3</td><td>51.2</td></tr>
+<tr><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Disabled">&times;</span></td><td><span aria-label="Not applicable">&ndash;</span></td><td><span aria-label="Not applicable">&ndash;</span></td><td><span aria-label="Not applicable">&ndash;</span></td><td>93.6</td><td>54.8</td></tr>
+<tr><td><span aria-label="Disabled">&times;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Disabled">&times;</span></td><td><span aria-label="Disabled">&times;</span></td><td><span aria-label="Disabled">&times;</span></td><td>94.5</td><td>56.7</td></tr>
+<tr><td><span aria-label="Disabled">&times;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Disabled">&times;</span></td><td>96.1</td><td>59.8</td></tr>
+<tr><td><span aria-label="Disabled">&times;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td>96.9</td><td>61.3</td></tr>
+<tr class="highlight"><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td><span aria-label="Enabled">&#10003;</span></td><td>97.9</td><td>62.6</td></tr></tbody>
+        </table>
+        <p class="table-caption" id="ablation-caption">Manuscript Table 5. Motion-CoT alone improves the baseline from
+          91.3 to 94.5 on LIBERO and from 51.2 to 56.7 on RoboCasa-GR1. RD with CDE supervision and
+          causally-decoupled attention contribute further gains; combining them with future-frame supervision
+          yields 97.9 and 62.6.</p>
+      </div>
+      <div class="table-wrap reveal" id="efficiency-results" tabindex="0" role="region" aria-labelledby="efficiency-results-title">
+        <h3 class="table-title" id="efficiency-results-title">Inference: Understanding Instead of Predict-then-Act</h3>
+        <table class="benchmark-table" aria-describedby="efficiency-results-caption">
+          <thead><tr><th scope="col">Pipeline</th><th scope="col">Size</th><th scope="col">RoboCasa-GR1</th><th scope="col">Latency (ms)</th></tr></thead>
+          <tbody><tr><th scope="row">Predict-then-Act</th><td>5.4B</td><td>58.4</td><td>1329.95</td></tr>
+<tr class="highlight"><th scope="row">Decoupled (PILOT)</th><td>5.4B</td><td>62.6</td><td>111.60</td></tr></tbody>
+        </table>
+        <p class="table-caption" id="efficiency-results-caption">Manuscript Table 6. With the same 5.4B architecture, the decoupled pipeline reduces reported latency from 1329.95 ms to 111.60 ms (11.9&times; faster) while improving success from 58.4% to 62.6%. Future-frame generation and the RD branch are used for supervision, not policy inference.</p>
       </div>
     </div>
   </section>
+
+  <section class="sec sec--alt" id="analysis">
+    <div class="wrap">
+      <h2 class="sec-title reveal">What Do Motion-CoT Tokens Learn?</h2>
+      <p class="section-intro reveal">The manuscript examines the learned representations from two complementary
+        views: task-level structure in the motion tokens, and spatial structure in predicted future states.</p>
+      <figure class="figure-card reveal">
+        <img src="media/figures/motion-cot-tsne.svg" width="216" height="83" alt="Two t-SNE plots of Motion-CoT tokens, with action types distinguished by color and sub-tasks by marker shape." data-zoom loading="lazy" />
+        <figcaption><b>Action-type structure without a clustering objective.</b> Mean-pooled Motion-CoT
+          embeddings form action-type groups, with related sub-tasks remaining close. The plots reproduce
+          manuscript Figure 7.</figcaption>
+      </figure>
+      <figure class="figure-card reveal">
+        <img src="media/figures/motivation2.jpg" width="3164" height="1613" alt="PCA pseudo-color maps of CDE-predicted representations during cup dumping and block stacking." data-zoom loading="lazy" />
+        <figcaption><b>State-transition structure, not just appearance.</b> PCA pseudo-color visualizations
+          of the CDE's predicted representations track the manipulated foreground through cup dumping and
+          block stacking. This is a representation visualization, not a generated RGB future image
+          (manuscript Figure 6).</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <section class="sec sec--alt" id="real-world">
     <div class="wrap">
       <h2 class="sec-title reveal">Demonstration in the real world</h2>
 
       <div class="real-figures reveal">
         <figure class="real-figure">
-          <img src="media/figures/real1.jpg" alt="Agibot-G1 humanoid robot and test environment." data-zoom loading="lazy" />
-          <figcaption>The Agibot-G1 humanoid robot and its test environment, featuring 8 daily objects: pen, eraser, correction fluid, charger, pencil case, stapler, book, and trash.</figcaption>
+          <img src="media/figures/real1.jpg" width="4655" height="1157" alt="Agibot-G1 humanoid robot and test environment." data-zoom loading="lazy" />
+          <figcaption>The Agibot-G1 dual-arm humanoid and desktop evaluation scenes. The eight tasks involve pen insertion, object grasping and placement, upright book placement, and trash disposal.</figcaption>
         </figure>
         <figure class="real-figure">
-          <img src="media/figures/real2.jpg" alt="Evaluation tasks and generalization settings." data-zoom loading="lazy" />
-          <figcaption>Evaluation tasks and generalization settings. Standard (83.1%), Flash+Cam.Offset, Desk change, and Color variation (68.3% overall).</figcaption>
+          <img src="media/figures/real2.jpg" width="2224" height="2067" alt="Evaluation tasks and generalization settings." data-zoom loading="lazy" />
+          <figcaption>Representative book, pen, and trash manipulation sequences under standard, replaced-surface, and flash-plus-camera-offset conditions. The full quantitative evaluation appears above.</figcaption>
         </figure>
       </div>
 
@@ -475,8 +567,8 @@
           </div>
         </div>
         <p class="video-grid-caption">
-          Simulation rollouts on RoboCasa-GR1 (24 tasks, 5 categories). PILOT achieves 62.6% average, with strong
-          performance on Pick and Place (59.7%) and Articulated from Tray (74.8%).
+          Selected rollouts from the 24-task RoboCasa-GR1 evaluation. PILOT achieves 62.6% reported average success;
+          full category and per-task comparisons are available in the Experiments section.
         </p>
       </div>
     </div>
@@ -489,7 +581,7 @@
       <div class="bibtex-wrap reveal">
         <!-- Full author citation retained only in source for the anonymous site.
         <pre><code>@inproceedings{ma2027pilot,
-  title     = {Decoupling Intention from Trajectory: A Representational Deduction Framework for World Action Models},
+  title     = {Motion Chain of Thought: Disentangling Motion Semantics from Visual Representations for Robotic Manipulation},
   author    = {Ma, Xiangkai and Ma, Yue and Wang, Junjie and Xu, Sheng
                and Li, Mingyang and Zhang, Han and Zhuang, Yuzheng
                and Li, Wenzhong and Yuan, Zhihao},
@@ -497,7 +589,7 @@
 }</code></pre>
         -->
         <pre><code>@misc{pilot2026,
-  title         = {Decoupling Intention from Trajectory: A Representational Deduction Framework for World Action Models},
+  title         = {Motion Chain of Thought: Disentangling Motion Semantics from Visual Representations for Robotic Manipulation},
   year          = {2026}
 }</code></pre>
         <button class="btn-copy" data-target="bibtex-code" title="Copy BibTeX">

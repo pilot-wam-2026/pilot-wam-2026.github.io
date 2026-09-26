@@ -117,6 +117,8 @@ a { color: var(--blue); text-decoration: none; transition: color .2s; }
 a:hover { color: var(--blue-bright); }
 
 img, video { display: block; max-width: 100%; }
+figure img { height: auto; }
+.sec[id], .table-wrap[id] { scroll-margin-top: 32px; }
 
 button {
   font: inherit;
@@ -307,6 +309,23 @@ html[data-theme="dark"] .nav {
   line-height: 1.65;
 }
 
+.hero .paper-title {
+  max-width: 1000px;
+  margin: 0 auto 22px;
+  padding: 0 20px;
+  font-size: clamp(2rem, 4.6vw, 3.7rem);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.paper-title span {
+  display: block;
+  max-width: 850px;
+  margin: 18px auto 0;
+  font-size: clamp(1.08rem, 2.2vw, 1.6rem);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
 .authors {
   font-size: .94rem;
   color: var(--ink-2);
@@ -382,6 +401,9 @@ html[data-theme="dark"] .nav {
   max-width: 900px;
   margin: 0 auto;
 }
+
+.hero .stats { margin-bottom: 40px; }
+.stat > span { display: block; }
 
 .stat {
   text-align: center;
@@ -687,6 +709,89 @@ html[data-theme="dark"] .nav {
 .table-wrap tr.highlight:hover td {
   background: var(--yellow-soft);
 }
+
+.section-intro {
+  max-width: 780px;
+  margin: 0 auto 28px;
+  color: var(--ink-2);
+  line-height: 1.75;
+}
+.result-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.result-index a {
+  padding: 7px 13px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: .85rem;
+}
+.result-index a:hover { border-color: var(--ink-3); }
+.benchmark-table tbody th[scope="row"] {
+  background: transparent;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--ink-2);
+  font-weight: 500;
+}
+.benchmark-table tr.highlight th[scope="row"],
+.benchmark-table tr.highlight td {
+  background: var(--yellow-ghost);
+  color: var(--ink);
+  font-weight: 600;
+}
+.benchmark-table .model-group th {
+  padding-top: 14px;
+  padding-bottom: 7px;
+  font-size: .75rem;
+  letter-spacing: .03em;
+  color: var(--ink-3);
+}
+.benchmark-table .category-average th,
+.benchmark-table .category-average td { font-weight: 600; }
+.table-wrap:focus-visible,
+.result-details summary:focus-visible {
+  outline: 2px solid var(--ink-3);
+  outline-offset: 4px;
+}
+.result-details {
+  margin: -8px 0 40px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+}
+.result-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ink);
+}
+.result-details[open] summary { margin-bottom: 16px; }
+.result-details .table-wrap { margin: 20px 0 0; }
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 0 0 32px;
+}
+.evidence-card {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+}
+.evidence-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.evidence-card h3 { margin: 8px 0; font-size: .98rem; }
+.evidence-card p { color: var(--ink-2); font-size: .87rem; line-height: 1.6; }
 
 /* ================================================================ ablation panels */
 .ablation-panels {
@@ -996,6 +1101,8 @@ html[data-theme="dark"] .trio-card {
   .ab-label { flex: 0 0 160px; }
 
   .real-figures { grid-template-columns: 1fr; }
+  .nav-links { gap: 12px; }
+  .evidence-grid { grid-template-columns: 1fr; }
 }
 
 /* ================================================================ responsive — 640px */
@@ -1023,7 +1130,8 @@ html[data-theme="dark"] .trio-card {
   .ab-label { flex: 0 0 120px; font-size: .8rem; }
   .ab-val   { flex: 0 0 42px; font-size: .8rem; }
 
-  .table-wrap { margin: 0 -12px; }
+  .table-wrap { margin: 0 -12px 32px; }
+  .result-details .table-wrap { margin: 20px 0 0; }
 
   .sec { padding: clamp(40px, 6vw, 60px) 0; }
 
@@ -1059,4 +1167,4 @@ html[data-theme="dark"] .trio-card {
 .ablation-table tr.highlight td { background: var(--yellow-ghost); font-weight: 600; }
 
 /* ── Table caption ────────────────────────────────── */
-.table-caption { font-size: .8rem; color: var(--text-2); margin-top: 8px; text-align: left; }
+.table-caption { font-size: .8rem; color: var(--ink-2); margin-top: 10px; text-align: left; line-height: 1.6; }
