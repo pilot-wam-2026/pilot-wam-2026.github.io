@@ -7,7 +7,9 @@ ICLR 2027 submission currently under review.
 
 - [Live project page](https://pilot-wam-2026.github.io/)
 - [Training and evaluation code](https://github.com/pilot-wam-2026/pilot-code)
-- [Original 340000 model and RoboCasa assets](https://huggingface.co/mxk1998/WM4A) (private; authorized account required)
+- [Original 340000 model and RoboCasa assets](https://huggingface.co/mxk1998/WM4A) (public; no login required)
+- [Checkpoint files](https://huggingface.co/mxk1998/WM4A/tree/main/checkpoints)
+- [Simulator archive](https://huggingface.co/mxk1998/WM4A/tree/main/archives)
 - [Download and installation](https://github.com/pilot-wam-2026/pilot-code/blob/main/docs/DOWNLOAD.md)
 - [Evaluation guide](https://github.com/pilot-wam-2026/pilot-code/blob/main/docs/EVALUATION.md)
 - [Training and resume](https://github.com/pilot-wam-2026/pilot-code/blob/main/docs/TRAINING.md)
@@ -21,6 +23,11 @@ Repository visibility, historical Git authorship and account ownership
 are not anonymized by editing the current page.
 
 ## Local Preview
+
+Public Hugging Face access was verified on September 30, 2026. The repository
+is ungated, and anonymous range downloads of both the checkpoint and simulator
+archive matched the verified local artifacts. This access check did not
+re-download the entire large-file bundle.
 
 ```bash
 git clone https://github.com/pilot-wam-2026/pilot-wam-2026.github.io.git

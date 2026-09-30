@@ -70,7 +70,7 @@
       <div class="btn-row reveal" style="--d:300ms">
         <a class="btn" href="https://huggingface.co/mxk1998/WM4A" target="_blank" rel="noopener noreferrer" aria-describedby="resource-access">
           <img class="btn-logo" src="static/images/huggingface-logo.svg" alt="" aria-hidden="true" />
-          Hugging Face (Private)
+          Hugging Face
         </a>
         <a class="btn" href="https://github.com/pilot-wam-2026/pilot-code" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.16 1.18a11 11 0 0 1 5.76 0c2.19-1.49 3.15-1.18 3.15-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.66.41.36.78 1.06.78 2.14v3.17c0 .31.2.66.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
@@ -88,8 +88,8 @@
         <a class="btn" href="https://github.com/pilot-wam-2026/pilot-code/blob/main/docs/LOGS.md" target="_blank" rel="noopener noreferrer">Evaluation Logs</a>
       </div>
       <p class="resource-access-note" id="resource-access">
-        Code and recorded evaluation logs are public. Model weights and RoboCasa assets
-        require an authorized Hugging Face account.
+        Code, model weights, RoboCasa assets and recorded evaluation logs are public.
+        Hugging Face downloads do not require login.
       </p>
 
       <!-- Teaser figure -->
@@ -513,11 +513,12 @@
           <a href="https://github.com/pilot-wam-2026/pilot-code" target="_blank" rel="noopener noreferrer">Explore GitHub &rarr;</a>
         </article>
         <article class="resource-card">
-          <span class="resource-label">02 / Model &middot; Private access</span>
+          <span class="resource-label">02 / Model &middot; Public</span>
           <h3>Original 340000 Weights</h3>
           <p>The 23.91 GB checkpoint, SHA-256 verification, metadata and constructor
             component preparation. The repository ID remains WM4A; the release is PILOT.</p>
           <a href="https://huggingface.co/mxk1998/WM4A" target="_blank" rel="noopener noreferrer">Open Hugging Face &rarr;</a>
+          <a href="https://huggingface.co/mxk1998/WM4A/tree/main/checkpoints" target="_blank" rel="noopener noreferrer">Browse checkpoint &rarr;</a>
         </article>
         <article class="resource-card">
           <span class="resource-label">03 / Environment</span>
@@ -525,7 +526,7 @@
           <p>A 4.53 GB archive with 45,853 simulator and robot resource files,
             plus separate policy/simulation environment setup.</p>
           <a href="https://github.com/pilot-wam-2026/pilot-code/blob/main/environment/README.md" target="_blank" rel="noopener noreferrer">Installation guide &rarr;</a>
-          <a href="https://huggingface.co/mxk1998/WM4A/tree/main/archives" target="_blank" rel="noopener noreferrer">Simulator archive (private) &rarr;</a>
+          <a href="https://huggingface.co/mxk1998/WM4A/tree/main/archives" target="_blank" rel="noopener noreferrer">Simulator archive &rarr;</a>
         </article>
         <article class="resource-card">
           <span class="resource-label">04 / Evaluate</span>
@@ -551,9 +552,11 @@
         </article>
       </div>
       <div class="resource-footnotes">
-        <p><b>Access checked September 30, 2026:</b> authenticated range downloads of both
-          large artifacts passed. Hugging Face remains private; login alone does not grant access.
-          See <a href="https://github.com/pilot-wam-2026/pilot-code/blob/main/docs/DOWNLOAD.md">download permissions, checksums and storage troubleshooting</a>.</p>
+        <p><b>Public access checked September 30, 2026:</b> the Hugging Face repository is
+          public and ungated. Checkpoint and simulator range downloads passed without
+          an account or access token.
+          Browse <a href="https://huggingface.co/mxk1998/WM4A/tree/main">all model and environment files</a>
+          or follow the <a href="https://github.com/pilot-wam-2026/pilot-code/blob/main/environment/README.md">installation guide</a>.</p>
         <p><b>Verification scope:</b> a CPU log audit is not action regeneration. Raw per-request
           streams are not in the log archive. Fresh Linux/CUDA package reproduction, long-run
           training convergence and multi-rank exact resume remain unverified.
@@ -584,7 +587,7 @@
     <div class="wrap">
       <p>&copy; 2026 PILOT Anonymous Authors &middot;
         <a href="https://github.com/pilot-wam-2026/pilot-code">Code</a> &middot;
-        <a href="https://huggingface.co/mxk1998/WM4A">Model resources (private)</a> &middot;
+        <a href="https://huggingface.co/mxk1998/WM4A">Model resources</a> &middot;
         Template inspired by <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies</a></p>
     </div>
   </footer>
