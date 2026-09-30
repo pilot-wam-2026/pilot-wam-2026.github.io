@@ -1,108 +1,58 @@
-# PILOT: Physical Inference for Latent Optimized Trajectories
+# PILOT Project Website
 
-> Decoupling Intention from Trajectory: A Representational Deduction Framework for World Action Models
+Project page for **Motion Chain of Thought** and PILOT, an anonymous
+ICLR 2027 submission currently under review.
 
-## Project Page
+## Resources
 
-This repository contains the project page for PILOT, deployed via GitHub Pages.
+- [Live project page](https://pilot-wam-2026.github.io/)
+- [Training and evaluation code](https://github.com/pilot-wam-2026/pilot-code)
+- [Original 340000 model and RoboCasa assets](https://huggingface.co/mxk1998/WM4A) (private; authorized account required)
+- [Download and installation](https://github.com/pilot-wam-2026/pilot-code/blob/main/docs/DOWNLOAD.md)
+- [Evaluation guide](https://github.com/pilot-wam-2026/pilot-code/blob/main/docs/EVALUATION.md)
+- [Training and resume](https://github.com/pilot-wam-2026/pilot-code/blob/main/docs/TRAINING.md)
+- [Recorded evaluation logs and provenance](https://github.com/pilot-wam-2026/pilot-code/blob/main/docs/LOGS.md)
+- [Validation limits](https://github.com/pilot-wam-2026/pilot-code/blob/main/docs/VALIDATION.md)
 
-**Live site:** [https://pilot-wam-2026.github.io](https://pilot-wam-2026.github.io)
+The manuscript's 58.3% RoboCasa result and the original 340000 checkpoint's
+repaired-protocol source evaluation (717/1200, 59.75%) are separate
+measurements. The resource section makes that distinction explicit.
+Repository visibility, historical Git authorship and account ownership
+are not anonymized by editing the current page.
 
----
-
-## Deploy to GitHub Pages (Step-by-Step)
-
-### Prerequisites
-
-- A GitHub account (you already have: `pilot-wam-2026`)
-- Git installed on your local machine
-- This project directory on your local machine
-
-### Step 1: Create a new repository on GitHub
-
-1. Go to [https://github.com/new](https://github.com/new) (log in as `pilot-wam-2026`)
-2. Repository name **must be** `pilot-wam-2026.github.io` (this is the special name for a user/organization site)
-3. Set visibility to **Public**
-4. Do NOT initialize with README, .gitignore, or license (we already have these)
-5. Click **Create repository**
-
-### Step 2: Initialize Git and push the code
-
-Open a terminal (CMD, PowerShell, or Git Bash) in the project directory `D:\PythonProjects\PILOT_AAAI2027_demo_my`, then run:
+## Local Preview
 
 ```bash
-# Initialize git repository
-git init
-
-# Add all files (respecting .gitignore)
-git add .
-
-# Create initial commit
-git commit -m "Initial commit: PILOT project page"
-
-# Add remote origin (use your actual GitHub token or SSH)
-git remote add origin https://github.com/pilot-wam-2026/pilot-wam-2026.github.io.git
-
-# Push to GitHub
-git branch -M main
-git push -u origin main
+git clone https://github.com/pilot-wam-2026/pilot-wam-2026.github.io.git
+cd pilot-wam-2026.github.io
+python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-> **Note:** If you use HTTPS authentication, GitHub no longer accepts passwords.
-> You need to use a **Personal Access Token (PAT)**:
-> 1. Go to GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
-> 2. Generate new token with `repo` scope
-> 3. Use the token as your password when prompted
+Visit `http://127.0.0.1:8000`. There is no build step or package installation.
+Check desktop/mobile layouts, both themes, internal anchors and resource
+links before publishing. Preserve the distinction between qualitative
+demo videos, manuscript experiments, and released checkpoint evidence.
 
-### Step 3: Enable GitHub Pages
+## Deployment
 
-1. Go to your repository on GitHub: `https://github.com/pilot-wam-2026/pilot-wam-2026.github.io`
-2. Click **Settings** tab
-3. In the left sidebar, click **Pages**
-4. Under "Build and deployment":
-   - Source: select **Deploy from a branch**
-   - Branch: select `main` and `/ (root)`
-   - Click **Save**
+GitHub Pages is configured for the root of `main`; `.nojekyll` is retained.
+Review and push a normal commit to publish. Do not reinitialize this
+existing repository or rewrite its history to update resource links.
+Use a credential manager or authenticated GitHub CLI, never tokens in
+source files or command arguments.
 
-### Step 4: Wait for deployment
+## Source Map
 
-- GitHub Pages will build and deploy your site automatically
-- This typically takes 1-5 minutes
-- You can check the deployment status under **Actions** tab in your repository
-- Once deployed, visit: [https://pilot-wam-2026.github.io](https://pilot-wam-2026.github.io)
-
-### Step 5: Future updates
-
-To update the site after making changes:
-
-```bash
-git add .
-git commit -m "Update: description of changes"
-git push
+```text
+index.html            Scientific content and resource links
+static/css/style.css  Responsive styling and light/dark themes
+static/js/main.js     Theme, lazy-loaded videos and interactions
+media/figures/        Existing manuscript illustrations
+media/videos/         Existing robot/simulation demonstrations
 ```
 
-GitHub Pages will automatically redeploy within 1-5 minutes.
-
----
-
-## Important Notes
-
-- The `.nojekyll` file is essential — it tells GitHub Pages **not** to process the site with Jekyll, which could otherwise ignore files starting with `_` or `.`
-- All video and image paths in `index.html` use relative paths, so they work correctly on GitHub Pages
-- GitHub Pages has a soft limit of ~1 GB per repository; this project is well within that limit
-- If you need a custom domain, configure it under Settings → Pages → Custom domain
-
-## Project Structure
-
-```
-├── index.html              # Main page
-├── .nojekyll               # Disable Jekyll processing
-├── media/
-│   ├── figures/            # Paper figures
-│   └── videos/             # Demo videos
-├── static/
-│   ├── css/style.css       # Stylesheet
-│   ├── images/             # UI images & icons
-│   ├── js/main.js          # JavaScript
-│   └── videos/             # Hero & rollout videos
-```
+No weights, training datasets, credentials, or private execution logs
+belong in this website repository. Keep first-party identities out of
+HTML comments as well as visible text; retain third-party legal attribution.
+New or edited publication figures must have editable SVG sources, with
+PDF/PNG deliverables exported from those SVGs.
